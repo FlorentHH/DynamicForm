@@ -222,8 +222,8 @@ Screen1 As screen:
         Size: =13
         Text: =Concat(Gallery2.AllItems,Label6.Text&",")
         Width: =1100
-        X: =60
-        Y: =672
+        X: =48
+        Y: =687
         ZIndex: =3
 
     "inputString_2 As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
