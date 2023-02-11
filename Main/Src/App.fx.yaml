@@ -1,4 +1,4 @@
 App As appinfo:
     BackEnabled: =false
-    OnStart: =ClearCollect(cQuestions,Questions)
+    OnStart: =ClearCollect(cQuestions,AddColumns(Questions,"tempTable",""))
 

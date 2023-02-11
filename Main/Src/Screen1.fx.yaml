@@ -79,7 +79,10 @@ Screen1 As screen:
                 ZIndex: =4
 
         "inputString As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
-            AccessibleLabel: =Self.Selected.TextInput1.Text
+            AccessibleLabel: |-
+                =If(IfError(Text(ParseJSON(ThisItem.Parameters).multiple),false)
+                ,ThisItem.tempTable,
+                Self.Selected.TextInput1.Text)
             BorderColor: =RGBA(166, 166, 166, 1)
             Fill: =RGBA(237, 237, 237, 1)
             Height: =Value(First(Self.AllItems).Label1.Text)
@@ -90,9 +93,9 @@ Screen1 As screen:
             TemplatePadding: =0
             TemplateSize: |-
                 =With({aaa:lblBot_1.Height+lblMid_1.Height+lblTop_1.Height},If(aaa<80,80,aaa))
-            Visible: |
-                =//First(Self.AllItems).InputType.Value="String"
-                true
+            Visible: |+
+                =First(Self.AllItems).InputType.Value="String"
+                
             Width: =Parent.Width-200
             X: |
                 =0
@@ -103,15 +106,6 @@ Screen1 As screen:
                 HtmlText: =ThisItem.Top
                 OnSelect: =Select(Parent)
                 Width: =Parent.Width
-                ZIndex: =1
-
-            Gallery8 As gallery.galleryVertical:
-                BorderColor: =RGBA(166, 166, 166, 1)
-                Items: =CustomGallerySample
-                Layout: =Layout.Vertical
-                TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(280, Self.Width - 60), Min(280, Self.Height - 60))
-                X: =40
-                Y: =40
                 ZIndex: =1
 
             lblMid_1 As htmlViewer:
@@ -175,9 +169,114 @@ Screen1 As screen:
                 Text: |-
                     =With({aaa:If(lblBot_1.Visible,lblBot_1.Height,0)+
                     If(TextInput1.Visible,TextInput1.Height,0)+
-                    If(lblTop_1.Visible,lblTop_1.Height+lblTop_1.Y,0)+10},If(aaa<80,80,aaa))
+                    If(lblTop_1.Visible,lblTop_1.Height+lblTop_1.Y,0)+10
+                    +If(multipleList.Visible,multipleList.Height+5,0)},If(aaa<80,80,aaa))
                 X: =800
                 ZIndex: =5
+
+            multipleList As gallery.galleryVertical:
+                AccessibleLabel: =ThisItem.ID
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: |-
+                    =With({aaa:RoundUp(CountRows(LastN(Split(ThisItem.tempTable,"/"),CountRows(Split(ThisItem.tempTable,"/"))-1)),0)},
+                    RoundUp(aaa/3,0))*45
+                Items: =LastN(Split(ThisItem.tempTable,"/"),CountRows(Split(ThisItem.tempTable,"/"))-1)
+                Layout: =Layout.Vertical
+                TemplateSize: =35
+                Visible: |
+                    =IfError(Text(ParseJSON(ThisItem.Parameters).multiple),false)
+                Width: =670
+                WrapCount: =3
+                X: =40
+                Y: =lblBot_1.Y+lblBot_1.Height
+                ZIndex: =6
+
+                listString As label:
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    BorderStyle: =BorderStyle.None
+                    BorderThickness: =2
+                    Color: =RGBA(51, 51, 51, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(166, 166, 166, 1)
+                    Fill: =RGBA(214, 216, 217, 1)
+                    FocusedBorderThickness: =4
+                    Font: =Font.'Segoe UI'
+                    Height: =30
+                    OnSelect: =Select(Parent)
+                    Size: =13
+                    Text: =ThisItem.Result
+                    Y: =5
+                    ZIndex: =1
+
+                listRemove As icon.Cancel:
+                    BorderColor: =RGBA(166, 166, 166, 1)
+                    Color: =RGBA(105, 121, 126, 1)
+                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                    DisabledColor: =RGBA(220, 220, 220, 1)
+                    DisabledFill: =RGBA(0, 0, 0, 0)
+                    FocusedBorderThickness: =4
+                    Height: =listString.Height
+                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                    HoverColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
+                    HoverFill: =RGBA(0, 0, 0, 0)
+                    Icon: =Icon.Cancel
+                    OnSelect: |-
+                        =With({aaa:LookUp(cQuestions,ID=Value(Parent.AccessibleLabel))},
+                        Patch(cQuestions,aaa,{tempTable:Substitute(aaa.tempTable,"/"&ThisItem.Result,"")})
+                        )
+                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                    PressedColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
+                    PressedFill: =RGBA(0, 0, 0, 0)
+                    Width: =listString.Height
+                    X: =listString.Width
+                    Y: =listString.Y
+                    ZIndex: =2
+
+            multipleClear As icon.Cancel:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Color: =RGBA(105, 121, 126, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(220, 220, 220, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =4
+                Height: =multipleAdd.Height
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Icon: =Icon.Trash
+                OnSelect: |-
+                    =Patch(cQuestions,LookUp(cQuestions,ID=ThisItem.ID),{tempTable:""})
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                Width: =multipleAdd.Height
+                X: =680
+                Y: =multipleAdd.Y
+                ZIndex: =7
+
+            multipleAdd As icon.Add:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Color: =RGBA(105, 121, 126, 1)
+                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                DisabledColor: =RGBA(220, 220, 220, 1)
+                DisabledFill: =RGBA(0, 0, 0, 0)
+                FocusedBorderThickness: =4
+                Height: =TextInput1.Height
+                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                HoverColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
+                HoverFill: =RGBA(0, 0, 0, 0)
+                Icon: =Icon.Add
+                OnSelect: |-
+                    =With({aaa:ThisItem.tempTable},Patch(cQuestions,LookUp(cQuestions,ID=ThisItem.ID),{tempTable:aaa&"/"&TextInput1.Text}))
+                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                PressedColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
+                PressedFill: =RGBA(0, 0, 0, 0)
+                Visible: =multipleList.Visible
+                Width: =TextInput1.Height
+                X: =TextInput1.X+TextInput1.Width+10
+                Y: =TextInput1.Y
+                ZIndex: =8
 
         Label6 As label:
             BorderColor: =RGBA(0, 0, 0, 0)
@@ -227,7 +326,7 @@ Screen1 As screen:
         DisabledColor: =RGBA(166, 166, 166, 1)
         FocusedBorderThickness: =4
         Font: =Font.'Segoe UI'
-        Height: =36
+        Height: =56
         Size: =13
         Text: =Concat(Gallery2.AllItems,Label6.Text&",")
         Width: =1100
