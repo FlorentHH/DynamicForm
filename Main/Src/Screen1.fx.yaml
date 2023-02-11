@@ -1,6 +1,15 @@
 Screen1 As screen:
     LoadingSpinnerColor: =RGBA(105, 121, 126, 1)
 
+    Gallery7 As gallery.galleryVertical:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Items: =CustomGallerySample
+        Layout: =Layout.Vertical
+        TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(280, Self.Width - 60), Min(280, Self.Height - 60))
+        X: =40
+        Y: =40
+        ZIndex: =1
+
     Gallery2 As gallery.variableTemplateHeightGallery:
         BorderColor: =RGBA(166, 166, 166, 1)
         DelayItemLoading: =true
@@ -225,106 +234,4 @@ Screen1 As screen:
         X: =48
         Y: =687
         ZIndex: =3
-
-    "inputString_2 As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
-        AccessibleLabel: =Self.Selected.TextInput1.Text
-        BorderColor: =RGBA(166, 166, 166, 1)
-        Fill: =RGBA(237, 237, 237, 1)
-        Height: |
-            =200
-        ItemAccessibleLabel: =
-        Items: =ThisItem
-        Layout: =Layout.Vertical
-        ShowScrollbar: =false
-        TemplatePadding: =0
-        TemplateSize: |-
-            =With({aaa:lblBot_3.Height+lblMid_3.Height+lblTop_3.Height},If(aaa<80,80,aaa))
-        Visible: |
-            =//First(Self.AllItems).InputType.Value="String"
-            true
-        Width: =Parent.Width-200
-        X: |
-            =0
-        ZIndex: =4
-
-        lblTop_3 As htmlViewer:
-            AutoHeight: =true
-            HtmlText: =ThisItem.Top
-            OnSelect: =Select(Parent)
-            Width: =Parent.Width
-            ZIndex: =1
-
-        Gallery6_1 As gallery.galleryVertical:
-            BorderColor: =RGBA(166, 166, 166, 1)
-            Height: =120
-            Items: =CustomGallerySample
-            Layout: =Layout.Vertical
-            TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(280, Self.Width - 60), Min(280, Self.Height - 60))
-            X: =40
-            ZIndex: =1
-
-        lblMid_3 As htmlViewer:
-            AutoHeight: =true
-            HtmlText: ="<b>"&ThisItem.Name&"</b>"
-            OnSelect: =Select(Parent)
-            Width: |
-                =300
-            Y: =lblTop_3.Y+lblTop_3.Height
-            ZIndex: =2
-
-        lblBot_3 As htmlViewer:
-            AutoHeight: =true
-            HtmlText: =ThisItem.Bot
-            OnSelect: =Select(Parent)
-            Visible: =!IsBlank(lblBot_3.HtmlText)
-            Width: =Parent.Width
-            X: |
-                =0
-            Y: =lblMid_3.Y+lblMid_3.Height
-            ZIndex: =3
-
-        TextInput1_2 As text:
-            BorderColor: =RGBA(166, 166, 166, 1)
-            BorderThickness: =2
-            Color: =RGBA(51, 51, 51, 1)
-            Default: ="Text input"
-            DisabledBorderColor: =RGBA(0, 0, 0, 0)
-            DisabledColor: =RGBA(166, 166, 166, 1)
-            DisabledFill: =RGBA(244, 244, 244, 1)
-            FocusedBorderThickness: =4
-            Font: =Font.'Segoe UI'
-            Height: =35
-            HoverBorderColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
-            HoverColor: =RGBA(51, 51, 51, 1)
-            HoverFill: =RGBA(255, 255, 255, 1)
-            OnSelect: =Select(Parent)
-            PressedBorderColor: =RGBA(105, 121, 126, 1)
-            PressedColor: =RGBA(51, 51, 51, 1)
-            PressedFill: =RGBA(255, 255, 255, 1)
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Size: =13
-            X: =lblMid_3.X+lblMid_3.Width
-            Y: =lblMid_3.Y
-            ZIndex: =4
-
-        Label1_2 As label:
-            BorderColor: =RGBA(0, 0, 0, 0)
-            BorderStyle: =BorderStyle.None
-            BorderThickness: =2
-            Color: =RGBA(51, 51, 51, 1)
-            DisabledBorderColor: =RGBA(0, 0, 0, 0)
-            DisabledColor: =RGBA(166, 166, 166, 1)
-            FocusedBorderThickness: =4
-            Font: =Font.'Segoe UI'
-            OnSelect: =Select(Parent)
-            Size: =13
-            Text: |-
-                =With({aaa:If(lblBot_3.Visible,lblBot_3.Height,0)+
-                If(TextInput1_2.Visible,TextInput1_2.Height,0)+
-                If(lblTop_3.Visible,lblTop_3.Height+lblTop_3.Y,0)+10},If(aaa<80,80,aaa))
-            X: =800
-            ZIndex: =5
 
