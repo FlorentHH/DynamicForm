@@ -1,14 +1,7 @@
 Screen1 As screen:
     LoadingSpinnerColor: =RGBA(105, 121, 126, 1)
 
-    Gallery7 As gallery.galleryVertical:
-        BorderColor: =RGBA(166, 166, 166, 1)
-        Items: =CustomGallerySample
-        Layout: =Layout.Vertical
-        TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(280, Self.Width - 60), Min(280, Self.Height - 60))
-        X: =40
-        Y: =40
-        ZIndex: =1
+
 
     Gallery2 As gallery.variableTemplateHeightGallery:
         BorderColor: =RGBA(166, 166, 166, 1)
@@ -107,6 +100,14 @@ Screen1 As screen:
                 =0
             ZIndex: =2
 
+            Gallery8 As gallery.galleryVertical:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Items: =CustomGallerySample
+                Layout: =Layout.Vertical
+                TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(280, Self.Width - 60), Min(280, Self.Height - 60))
+                X: =40
+                Y: =40
+                ZIndex: =1
             lblTop_1 As htmlViewer:
                 AutoHeight: =true
                 HtmlText: =ThisItem.Top
