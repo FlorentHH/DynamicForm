@@ -1,0 +1,102 @@
+AffichageConditionnel As screen:
+    LoadingSpinnerColor: =RGBA(105, 121, 126, 1)
+
+    TextInput2_1 As text:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        BorderThickness: =2
+        Color: =RGBA(51, 51, 51, 1)
+        Default: =LookUp(Questions,ID=1).ConditionnalDisplay
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        Height: =318
+        HoverBorderColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
+        HoverColor: =RGBA(51, 51, 51, 1)
+        HoverFill: =RGBA(255, 255, 255, 1)
+        Mode: =TextMode.MultiLine
+        PressedBorderColor: =RGBA(105, 121, 126, 1)
+        PressedColor: =RGBA(51, 51, 51, 1)
+        PressedFill: =RGBA(255, 255, 255, 1)
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =22
+        Width: =472
+        X: =33
+        Y: =77
+        ZIndex: =3
+
+    TextInput3 As text:
+        BorderColor: =RGBA(166, 166, 166, 1)
+        BorderThickness: =2
+        Color: =RGBA(51, 51, 51, 1)
+        Default: ="Text input"
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        HoverBorderColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
+        HoverColor: =RGBA(51, 51, 51, 1)
+        HoverFill: =RGBA(255, 255, 255, 1)
+        PressedBorderColor: =RGBA(105, 121, 126, 1)
+        PressedColor: =RGBA(51, 51, 51, 1)
+        PressedFill: =RGBA(255, 255, 255, 1)
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =13
+        X: =561
+        Y: =192
+        ZIndex: =6
+
+    Label4 As label:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(51, 51, 51, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(237, 237, 237, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        Height: =66
+        Size: =13
+        Text: |-
+            ="Je suis affiché si l'input contient aaa ou bbb ou ccc
+            "
+        Visible: |-
+            =With({conditionAny:Concat(ForAll(Filter(ForAll(
+                    Table(ParseJSON(LookUp(Questions,ID=1).ConditionnalDisplay)),// ici ça serait un ThisItem
+                    {
+                        type: Text(Value.type),
+                        keyword: Text(Value.keyword)
+                    }),type="any"),
+            !IsBlank(Find(keyword,TextInput3.Text))),Value)}, // ici ça serait un lookup de la réponse du parent
+            !IsBlank(Find("true",conditionAny))
+            )
+        Width: =232
+        X: =903
+        Y: =179
+        ZIndex: =7
+
+    Label5 As label:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        Color: =RGBA(51, 51, 51, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        FocusedBorderThickness: =4
+        Font: =Font.'Segoe UI'
+        Height: =74
+        Size: =13
+        Text: ="Dans l'exemple on a un type de conditionnalité. Dans l'absolu on pourrait avoir des ALL, OR.... ANY semble correspondre à 90% du scope"
+        Width: =478
+        X: =37
+        ZIndex: =8
+

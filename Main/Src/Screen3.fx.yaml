@@ -1,0 +1,105 @@
+Screen3 As screen:
+    LoadingSpinnerColor: =RGBA(105, 121, 126, 1)
+
+    "inputString_1 As gallery.'BrowseLayout_Vertical_TwoTextVariant_ver4.0'":
+        AccessibleLabel: =Self.Selected.TextInput1.Text
+        BorderColor: =RGBA(166, 166, 166, 1)
+        Fill: =RGBA(237, 237, 237, 1)
+        Height: |
+            =200
+        ItemAccessibleLabel: =
+        Items: =ThisItem
+        Layout: =Layout.Vertical
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: |-
+            =With({aaa:lblBot_2.Height+lblMid_2.Height+lblTop_2.Height},If(aaa<80,80,aaa))
+        Visible: |
+            =//First(Self.AllItems).InputType.Value="String"
+            true
+        Width: =Parent.Width-200
+        X: |
+            =0
+        ZIndex: =1
+
+        lblTop_2 As htmlViewer:
+            AutoHeight: =true
+            HtmlText: =ThisItem.Top
+            OnSelect: =Select(Parent)
+            Width: =Parent.Width
+            ZIndex: =1
+
+        Gallery6 As gallery.galleryVertical:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Height: =120
+            Items: =CustomGallerySample
+            Layout: =Layout.Vertical
+            TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(280, Self.Width - 60), Min(280, Self.Height - 60))
+            X: =40
+            ZIndex: =1
+
+        lblMid_2 As htmlViewer:
+            AutoHeight: =true
+            HtmlText: ="<b>"&ThisItem.Name&"</b>"
+            OnSelect: =Select(Parent)
+            Width: |
+                =300
+            Y: =lblTop_2.Y+lblTop_2.Height
+            ZIndex: =2
+
+        lblBot_2 As htmlViewer:
+            AutoHeight: =true
+            HtmlText: =ThisItem.Bot
+            OnSelect: =Select(Parent)
+            Visible: =!IsBlank(lblBot_2.HtmlText)
+            Width: =Parent.Width
+            X: |
+                =0
+            Y: =lblMid_2.Y+lblMid_2.Height
+            ZIndex: =3
+
+        TextInput1_1 As text:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            BorderThickness: =2
+            Color: =RGBA(51, 51, 51, 1)
+            Default: ="Text input"
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            DisabledFill: =RGBA(244, 244, 244, 1)
+            FocusedBorderThickness: =4
+            Font: =Font.'Segoe UI'
+            Height: =35
+            HoverBorderColor: =ColorFade(RGBA(105, 121, 126, 1), -30%)
+            HoverColor: =RGBA(51, 51, 51, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            OnSelect: =Select(Parent)
+            PressedBorderColor: =RGBA(105, 121, 126, 1)
+            PressedColor: =RGBA(51, 51, 51, 1)
+            PressedFill: =RGBA(255, 255, 255, 1)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =13
+            X: =lblMid_2.X+lblMid_2.Width
+            Y: =lblMid_2.Y
+            ZIndex: =4
+
+        Label1_1 As label:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            Color: =RGBA(51, 51, 51, 1)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(166, 166, 166, 1)
+            FocusedBorderThickness: =4
+            Font: =Font.'Segoe UI'
+            OnSelect: =Select(Parent)
+            Size: =13
+            Text: |-
+                =With({aaa:If(lblBot_2.Visible,lblBot_2.Height,0)+
+                If(TextInput1_1.Visible,TextInput1_1.Height,0)+
+                If(lblTop_2.Visible,lblTop_2.Height+lblTop_2.Y,0)+10},If(aaa<80,80,aaa))
+            X: =800
+            ZIndex: =5
+

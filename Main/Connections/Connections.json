@@ -1,0 +1,34 @@
+{
+  "5a6fa880-d4f3-4613-a69e-d0c980a0eb7c": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/juanq/gateway/greyhound/3000.150.11/1.0.1613.3116/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://1bbmrx.sharepoint.com/sites/UniversalForms": {
+        "dataSources": {
+          "Forms": {
+            "tableName": "3ea1c06a-cdc9-4a9b-9169-2094716ddd70"
+          },
+          "Questions": {
+            "tableName": "088ce292-d1b1-4156-8f88-3d242b138269"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Forms",
+      "Questions"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "5a6fa880-d4f3-4613-a69e-d0c980a0eb7c"
+  }
+}
