@@ -1,15 +1,6 @@
 Screen1 As screen:
     LoadingSpinnerColor: =RGBA(105, 121, 126, 1)
 
-    Gallery7 As gallery.galleryVertical:
-        BorderColor: =RGBA(166, 166, 166, 1)
-        Items: =CustomGallerySample
-        Layout: =Layout.Vertical
-        TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(280, Self.Width - 60), Min(280, Self.Height - 60))
-        X: =40
-        Y: =40
-        ZIndex: =1
-
     Gallery2 As gallery.variableTemplateHeightGallery:
         BorderColor: =RGBA(166, 166, 166, 1)
         DelayItemLoading: =true
@@ -112,6 +103,15 @@ Screen1 As screen:
                 HtmlText: =ThisItem.Top
                 OnSelect: =Select(Parent)
                 Width: =Parent.Width
+                ZIndex: =1
+
+            Gallery8 As gallery.galleryVertical:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                Items: =CustomGallerySample
+                Layout: =Layout.Vertical
+                TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(280, Self.Width - 60), Min(280, Self.Height - 60))
+                X: =40
+                Y: =40
                 ZIndex: =1
 
             lblMid_1 As htmlViewer:
